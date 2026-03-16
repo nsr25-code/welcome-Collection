@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    // Collection: products
+    // Fields:
+    //   - id: number (required)
+    //   - name: string (required)
+    //   - image: string (required)
+    //   - category: string (required)
+    //   - updatedAt: timestamp (optional)
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.email == "mdnisarahmad116191143@gmail.com" && request.auth.token.email_verified == true);
+    }
+
+    match /products/{productId} {
+      // Anyone can view products
+      allow read: if true;
+      
+      // Only admin can update product images
+      allow write: if isAdmin();
+    }
+  }
+}

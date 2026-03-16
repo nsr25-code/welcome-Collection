@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A product category in the collection",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "name": { "type": "string" },
+        "image": { "type": "string" },
+        "category": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "image", "category"]
+    }
+  },
+  "firestore": {
+    "products": {
+      "schema": "Product",
+      "description": "Collection of products with their images"
+    }
+  }
+}
